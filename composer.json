@@ -6,5 +6,8 @@
             "email": "yumuscletank@gmail.com"
         }
     ],
-    "require": {}
+    "require": {},
+    "require-dev": {
+        "codeception/codeception": "^3.0"
+    }
 }
