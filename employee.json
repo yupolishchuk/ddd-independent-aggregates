@@ -1,0 +1,34 @@
+{
+  "id" : 17,
+  "name": {
+    "last": "Блюр",
+    "first": "Ивиан",
+    "middle": "Петрович"
+  },
+  "address": {
+    "country": "RCE2017",
+    "state": "Небесная обл.",
+    "city": "Жнецк",
+    "street": "Мастодонтов",
+    "house": 15
+  },
+  "phones": [
+    {
+      "country": 9,
+      "code": 100,
+      "number": 1000000
+    },
+    {
+      "country": 9,
+      "code": 200,
+      "number": 2000000
+    }
+  ],
+  "create_date": "2017-05-20",
+  "current_status": "active",
+  "statuses": [
+    {"status":  "active", "date": "2017-05-20"},
+    {"status":  "archive", "date": "2018-06-19"},
+    {"status":  "active", "date":  "2019-07-22"}
+  ]
+}

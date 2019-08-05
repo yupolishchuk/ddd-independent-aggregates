@@ -1,0 +1,10 @@
+{
+    "name": "yura/ddd-independent-aggregates",
+    "authors": [
+        {
+            "name": "yupolishchuk",
+            "email": "yumuscletank@gmail.com"
+        }
+    ],
+    "require": {}
+}
