@@ -1,8 +1,10 @@
 <?php
 
 
-namespace tests\unit\Employee;
+namespace tests\unit\entities\Employee;
 
+use app\entities\Employee\Events\EmployeeRemoved;
+use tests\unit\entities\Employee\EmployeeBuilder;
 use Codeception\Test\Unit;
 
 class RemoveTest extends Unit
@@ -14,14 +16,14 @@ class RemoveTest extends Unit
         $employee->remove();
 
         $this->assertNotEmpty($events = $employee->releaseEvents());
-        $this->assertInstanceOf(EmployeeRemoved::class, end($evends));
+        $this->assertInstanceOf(EmployeeRemoved::class, end($events));
     }
 
     public function testNotArchived()
     {
         $employee = EmployeeBuilder::instance()->build();
 
-        $this->expectExceptionMessage('Cannot remove active employee');
+        $this->expectExceptionMessage('Cannot remove active employee.');
 
         $employee->remove();
     }

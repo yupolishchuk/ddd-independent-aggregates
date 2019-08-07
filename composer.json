@@ -6,8 +6,16 @@
             "email": "yumuscletank@gmail.com"
         }
     ],
-    "require": {},
+    "require": {
+        "beberlei/assert": "^3.2"
+    },
     "require-dev": {
         "codeception/codeception": "^3.0"
+    },
+    "autoload" : {
+        "psr-4" : {
+            "tests\\" : "tests/",
+            "app\\": "app/"
+        }
     }
 }

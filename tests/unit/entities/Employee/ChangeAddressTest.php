@@ -1,8 +1,11 @@
 <?php
 
 
-namespace tests\unit\Employee;
+namespace tests\unit\entities\Employee;
 
+use app\entities\Employee\Address;
+use app\entities\Employee\Events\EmployeeAddressChanged;
+use tests\unit\entities\Employee\EmployeeBuilder;
 use Codeception\Test\Unit;
 
 class ChangeAddressTest extends Unit
@@ -11,7 +14,7 @@ class ChangeAddressTest extends Unit
     {
         $employee = EmployeeBuilder::instance()->build();
 
-        $employee->changeAddress($address = new Address('New', 'Test', 'Address'));
+        $employee->changeAddress($address = new Address('New', 'Test', 'Address', 'Street','47a'));
         $this->assertEquals($address, $employee->getAddress());
 
         $this->assertNotEmpty($events = $employee->releaseEvents());

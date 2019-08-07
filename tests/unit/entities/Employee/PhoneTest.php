@@ -1,8 +1,12 @@
 <?php
 
 
-namespace tests\unit\Employee;
+namespace tests\unit\entites\Employee;
 
+use app\entities\Employee\Phone;
+use app\entities\Employee\Events\EmployeePhoneAdded;
+use app\entities\Employee\Events\EmployeePhoneRemoved;
+use tests\unit\entities\Employee\EmployeeBuilder;
 use Codeception\Test\Unit;
 
 class PhoneTest extends Unit
@@ -25,7 +29,7 @@ class PhoneTest extends Unit
         $employee = EmployeeBuilder::instance()
             ->withPhones([$phone = new Phone(7, '111', '1000000')])
             ->build();
-        $this->expectExceptionMessage('Phone already exists');
+        $this->expectExceptionMessage('Employee cannot have equal phone numbers.');
 
         $employee->addPhone($phone);
     }
@@ -52,7 +56,7 @@ class PhoneTest extends Unit
     public function testRemoveNotExists()
     {
         $employee = EmployeeBuilder::instance()->build();
-        $this->expectExceptionMessage('Phone is not found');
+        $this->expectExceptionMessage('Phone not found.');
 
         $employee->removePhone(42);
     }
@@ -60,10 +64,13 @@ class PhoneTest extends Unit
     public function testRemoveLast()
     {
         $employee = EmployeeBuilder::instance()
-            ->withPhones([$phone = new Phone(7, '111', '1000000')])
+            ->withPhones([
+                new Phone(7, '111', '1000000'),
+            ])
             ->build();
-        $this->expectExceptionMessage('Cant remove the last phone');
 
-        $employee->removePhone($phone);
+        $this->expectExceptionMessage('Cannot remove the last phone.');
+
+        $employee->removePhone(0);
     }
 }

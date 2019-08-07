@@ -1,12 +1,14 @@
 <?php
 
+namespace tests\unit\entities\Employee;
 
-namespace tests\unit\Employee;
-
+use app\entities\Employee\Events\EmployeeArchived;
+use tests\unit\entities\Employee\EmployeeBuilder;
 use Codeception\Test\Unit;
 
 class ArchiveTest extends Unit
 {
+
     public function testSuccess()
     {
         $employee = EmployeeBuilder::instance()->build();

@@ -1,7 +1,9 @@
 <?php
 
-namespace tests\unit\Employee;
+namespace tests\unit\entities\Employee;
 
+use tests\unit\entities\Employee\EmployeeBuilder;
+use app\entities\Employee\Events\EmployeeCreated;
 use app\entities\Employee\Address;
 use app\entities\Employee\Employee;
 use app\entities\Employee\EmployeeId;
@@ -40,7 +42,7 @@ class CreateTest extends Unit
 
     public function testWithoutPhones()
     {
-        $this->expectExceptionMessage('Employee must have at least one phone number');
+        $this->expectExceptionMessage('Employee must have at least one phone number.');
 
         new Employee(
             new EmployeeId(25),
@@ -52,7 +54,7 @@ class CreateTest extends Unit
 
     public function testWithSamePhoneNubmers()
     {
-        $this->expectExceptionMessage('Employee cant have equal phone numbers');
+        $this->expectExceptionMessage('Employee cannot have equal phone numbers.');
 
         new Employee(
             new EmployeeId(25),

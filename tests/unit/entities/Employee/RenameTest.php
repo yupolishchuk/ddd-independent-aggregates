@@ -1,9 +1,10 @@
 <?php
 
+namespace tests\unit\entities\Employee;
 
-namespace tests\unit\Employee;
-
-
+use app\entities\Employee\Name;
+use app\entities\Employee\Events\EmployeeRenamed;
+use tests\unit\entities\Employee\EmployeeBuilder;
 use Codeception\Test\Unit;
 
 

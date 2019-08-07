@@ -1,6 +1,6 @@
 <?php
 
-namespace tests\unit\Employee;
+namespace tests\unit\entities\Employee;
 
 use app\entities\Employee\Address;
 use app\entities\Employee\Employee;
@@ -17,7 +17,7 @@ class EmployeeBuilder
 
     public function __construct()
     {
-        $this->phones = new Phone(9, "100", "1000000");
+        $this->phones[] = new Phone(9, "100", "1000000");
     }
 
     public static function instance()
@@ -31,6 +31,13 @@ class EmployeeBuilder
         return $this;
     }
 
+    public function archived()
+    {
+        $this->archived = true;
+        return $this;
+        
+    }
+    
     public function build()
     {
         $employee = new Employee(
