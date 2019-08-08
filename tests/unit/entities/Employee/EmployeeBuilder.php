@@ -31,6 +31,12 @@ class EmployeeBuilder
         return $this;
     }
 
+    public function withId($id)
+    {
+        $this->id = $id;
+        return $this;
+    }
+
     public function archived()
     {
         $this->archived = true;
