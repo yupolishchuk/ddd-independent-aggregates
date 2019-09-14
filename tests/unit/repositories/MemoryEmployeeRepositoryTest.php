@@ -5,7 +5,7 @@ namespace tests\unit\repositories;
 use app\repositories\MemoryEmployeeRepository;
 
 
-class MemoryEmployeeRepositoryTest extends BaseRepositoriesTest
+class MemoryEmployeeRepositoryTest extends BaseRepositoryTest
 {
     /**
      * @var \UnitTester

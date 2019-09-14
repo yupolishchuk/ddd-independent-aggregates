@@ -10,11 +10,29 @@ class Employee implements AggregateRoot
 {
     use EventTrait;
 
+    /**
+     * @var EmployeeId
+     */
     private $id;
+    /**
+     * @var Name
+     */
     private $name;
+    /**
+     * @var Address
+     */
     private $address;
+    /**
+     * @var Phones
+     */
     private $phones;
+    /**
+     * @var \DateTimeImmutable
+     */
     private $createDate;
+    /**
+     * @var Status[]
+     */
     private $statuses = [];
 
     public function __construct(EmployeeId $id, Name $name, Address $address, array $phones)
@@ -64,10 +82,10 @@ class Employee implements AggregateRoot
     public function reinstate(\DateTimeImmutable $date): void
     {
         if (!$this->isArchived()) {
-            throw new \DomainException('Employee is not already archived.');
+            throw new \DomainException('Employee is not archived.');
         }
-        $this->addStatus(Status::ARCHIVED, $date);
-        $this->recordEvent(new Events\EmployeeReinstantiated($this->id, $date));
+        $this->addStatus(Status::ACTIVE, $date);
+        $this->recordEvent(new Events\EmployeeReinstated($this->id, $date));
     }
 
     public function remove(): void
@@ -82,20 +100,20 @@ class Employee implements AggregateRoot
     {
         return $this->getCurrentStatus()->isActive();
     }
-
+    
     public function isArchived(): bool
     {
         return $this->getCurrentStatus()->isArchived();
     }
 
-    private function addStatus($value, \DateTimeImmutable $date): void
-    {
-        $this->statuses[] = new Status($value, $date);
-    }
-
     private function getCurrentStatus(): Status
     {
         return end($this->statuses);
+    }
+
+    private function addStatus($value, \DateTimeImmutable $date): void
+    {
+        $this->statuses[] = new Status($value, $date);
     }
 
     public function getId(): EmployeeId { return $this->id; }
