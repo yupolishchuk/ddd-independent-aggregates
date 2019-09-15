@@ -9,6 +9,7 @@
     "require": {
         "beberlei/assert": "^3.2",
         "ramsey/uuid": "^3.8",
+        "ocramius/proxy-manager": "^2.2",
 
         "yiisoft/yii2": "~2.0.14",
         "yiisoft/yii2-bootstrap": "~2.0.0",
