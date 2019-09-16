@@ -11,12 +11,30 @@ class Employee implements AggregateRoot
 {
     use EventTrait;
 
+    /**
+     * @var EmployeeId
+     */
     private $id;
+    /**
+     * @var Name
+     */
     private $name;
+    /**
+     * @var Address
+     */
     private $address;
+    /**
+     * @var Phones
+     */
     private $phones;
+    /**
+     * @var \DateTimeImmutable
+     */
     private $createDate;
-    private $statuses;
+    /**
+     * @var Status[]
+     */
+    private $statuses = [];
 
     public function __construct(EmployeeId $id, Name $name, Address $address, array $phones)
     {
@@ -25,7 +43,6 @@ class Employee implements AggregateRoot
         $this->address = $address;
         $this->phones = new Phones($phones);
         $this->createDate = new \DateTimeImmutable();
-        $this->statuses = new ArrayObject();
         $this->addStatus(Status::ACTIVE, $this->createDate);
         $this->recordEvent(new Events\EmployeeCreated($this->id));
     }
@@ -66,10 +83,10 @@ class Employee implements AggregateRoot
     public function reinstate(\DateTimeImmutable $date): void
     {
         if (!$this->isArchived()) {
-            throw new \DomainException('Employee is not already archived.');
+            throw new \DomainException('Employee is not archived.');
         }
-        $this->addStatus(Status::ARCHIVED, $date);
-        $this->recordEvent(new Events\EmployeeReinstantiated($this->id, $date));
+        $this->addStatus(Status::ACTIVE, $date);
+        $this->recordEvent(new Events\EmployeeReinstated($this->id, $date));
     }
 
     public function remove(): void
@@ -90,15 +107,14 @@ class Employee implements AggregateRoot
         return $this->getCurrentStatus()->isArchived();
     }
 
+    private function getCurrentStatus(): Status
+    {
+        return end($this->statuses);
+    }
+
     private function addStatus($value, \DateTimeImmutable $date): void
     {
         $this->statuses[] = new Status($value, $date);
-    }
-
-    private function getCurrentStatus(): Status
-    {
-        $statuses = $this->statuses->getArrayCopy();
-        return end($statuses);
     }
 
     public function getId(): EmployeeId { return $this->id; }
@@ -106,5 +122,5 @@ class Employee implements AggregateRoot
     public function getPhones(): array { return $this->phones->getAll(); }
     public function getAddress(): Address { return $this->address; }
     public function getCreateDate(): \DateTimeImmutable { return $this->createDate; }
-    public function getStatuses(): array { return $this->statuses->getArrayCopy(); }
+    public function getStatuses(): array { return $this->statuses; }
 }
