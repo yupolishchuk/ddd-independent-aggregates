@@ -2,9 +2,16 @@
 #
 # Suite for unit or integration tests.
 
-actor: UnitTester
+#actor: UnitTester
+#modules:
+#    enabled:
+#        - Asserts
+#        - \Helper\Unit
+#    step_decorators: ~
+
+class_name: UnitTester
 modules:
     enabled:
         - Asserts
-        - \Helper\Unit
-    step_decorators: ~        
+        - Yii2:
+              part: [orm, fixtures, email]

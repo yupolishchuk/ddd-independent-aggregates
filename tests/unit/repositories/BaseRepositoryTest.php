@@ -1,6 +1,5 @@
 <?php
 
-
 namespace tests\unit\repositories;
 
 use app\entities\Employee\EmployeeId;
@@ -12,7 +11,7 @@ use app\repositories\NotFoundException;
 use tests\unit\entities\Employee\EmployeeBuilder;
 use Codeception\Test\Unit;
 
-abstract class BaseRepositoriesTest extends Unit
+abstract class BaseRepositoryTest extends Unit
 {
     /**
      * @var EmployeeRepository
@@ -22,7 +21,6 @@ abstract class BaseRepositoriesTest extends Unit
     public function testGet(): void
     {
         $this->repository->add($employee = EmployeeBuilder::instance()->build());
-
         $found = $this->repository->get($employee->getId());
 
         $this->assertNotNull($found);
